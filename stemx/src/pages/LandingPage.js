@@ -2,6 +2,7 @@ import React from 'react';
 import '../App.css';
 import { Link } from 'react-router-dom';
 
+
 const LandingPage = () => {
 
   console.log("🎯 LandingPage is rendering");
@@ -9,7 +10,7 @@ const LandingPage = () => {
   return (
     <div className="gradient-background">
       <div className="navbar">
-        <div className="stemx-logo">🅂</div>
+      <div className="stemx-logo">🅂</div>
         <div className="nav-links">
           <Link to="/about">About</Link>
           <Link to="/community">Community</Link>
@@ -32,3 +33,4 @@ const LandingPage = () => {
 };
 
 export default LandingPage;
+
