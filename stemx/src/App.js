@@ -1,25 +1,28 @@
-import logo from './logo.svg';
 import './App.css';
+import React, { useState, useEffect } from 'react';//figure out how this fits into puzzle later
+import axios from "axios";
+
+const API_URL = "http://10.138.240.15:5000/api/users";//might need to change based on what it looks like on the pi
 
 function App() {
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    axios.get(API_URL)
+      .then(response => setUsers(response.data))
+      .catch(error => console.error("Error fetching users:", error));
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>User List</h1>
+      <ul>
+        {users.map(user => (
+          <li key={user.id}>{user.name} - {user.email}</li>
+        ))}
+      </ul>
     </div>
   );
 }
 
-export default App;
+export default App;//"home" currently returns API functionality testing :)

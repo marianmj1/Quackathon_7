@@ -4,7 +4,7 @@ import axios from "axios";
 
 const API_URL = "http://10.138.240.15:5000/api/users";//might need to change based on what it looks like on the pi
 
-function Home() {
+function Api() {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
@@ -25,4 +25,4 @@ function Home() {
   );
 }
 
-export default Home;//"home" currently returns API functionality testing :)
+export default Api;//"home" currently returns API functionality testing :)
