@@ -1,8 +1,8 @@
-import './App.css';
-import React, { useState, useEffect } from 'react';//figure out how this fits into puzzle later
-import axios from "axios";
-
-const API_URL = "http://10.138.240.15:5000/api/users";//might need to change based on what it looks like on the pi
+App.js
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import LandingPage from './pages/LandingPage.js';
+// Import other pages like About, Login, Signup
 
 function App() {
   const [users, setUsers] = useState([]);
@@ -14,15 +14,18 @@ function App() {
   }, []);
 
   return (
-    <div>
-      <h1>User List</h1>
-      <ul>
-        {users.map(user => (
-          <li key={user.id}>{user.name} - {user.email}</li>
-        ))}
-      </ul>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        {/* Add these as you build them */}
+        {/* <Route path="/about" element={<AboutPage />} /> */}
+        {/* <Route path="/login" element={<LoginPage />} /> */}
+        {/* <Route path="/signup" element={<SignupPage />} /> */}
+      </Routes>
+    </Router>
   );
 }
 
-export default App;//"home" currently returns API functionality testing :)
+export default App;
+
+
