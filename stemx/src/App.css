@@ -147,5 +147,156 @@ body, html, #root {
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
 }
 
+.dashboard-container {
+  display: flex;
+  height: 100vh;
+  background: linear-gradient(-45deg, #ffd6d6, #ffb6e6, #ffe29f, #ffc9de, #e5d1f2);
+  background-size: 400% 400%;
+  animation: gradientShift 8s ease infinite;
+  color: white;
+}
+
+.dashboard-main {
+  flex: 2;
+  padding: 40px;
+}
+
+.dashboard-profile {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 30px;
+  border-left: 2px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+.skill-bubbles {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.skill-tag {
+  background: rgba(255, 255, 255, 0.25);
+  padding: 8px 15px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: white;
+  backdrop-filter: blur(4px);
+}
+
+.profile-image {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 20px;
+  border: 3px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.profile-image-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.dashboard-welcome {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 40px;
+  color: white;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+}
+
+.dashboard-widget {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  padding: 30px;
+  text-align: left;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.15);
+}
+
+.dashboard-widget:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-5px);
+}
+
+.dashboard-main {
+  max-width: 1000px;
+  padding-right: 20px;
+  margin-right: 50px;
+}
 
 
+.widget-icon {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 15px;
+}
+
+.full-width {
+  width: 100%;
+  max-width: 850px;
+  margin-bottom: 20px;
+}
+
+.calendar-embed {
+  margin-top: 15px;
+  border-radius: 12px;
+  overflow: hidden;
+  height: 250px;       /* 👈 Match the iframe height */
+  width: 100%;
+  max-width: 900px;    /* 👈 Prevents overflow */
+}
+
+/* Grid row for bottom widgets */
+.dashboard-grid-row {
+  display: flex;
+  gap: 30px;
+}
+.dashboard-grid-row .dashboard-widget {
+  flex: 1;
+}
+.logout-button {
+  margin-top: 100px;
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.25);
+  color: white;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(6px);
+}
+
+.logout-button:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+.widget-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.widget-icon {
+  font-size: 1.8rem;
+}
+
+.dashboard-widget h3 {
+  margin: 0;
+  font-size: 1.2rem;
+}
