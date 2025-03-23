@@ -76,7 +76,7 @@ const DashboardPage = () => {
   
           <h3>Skills:</h3>
           <div className="skill-bubbles">
-            <span className="skill-tag">Python</span>
+            <span className="skill-tag">Javascript</span>
             <span className="skill-tag">React</span>
             <span className="skill-tag">CAD</span>
             <span className="skill-tag">UI/UX Design</span>

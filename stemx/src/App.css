@@ -389,6 +389,14 @@ body, html, #root {
   backdrop-filter: blur(10px);
 }
 
+.resource-card h3 {
+  font-size: 1.4rem;  /* Or 1.5rem for even bolder */
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: white;
+}
+
+
 .resource-tags {
   color: #ff66c4;
   font-size: 1.0rem;
@@ -509,21 +517,35 @@ body, html, #root {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
+  min-height: 100vh;
+  padding-top: 60px;
+  padding-bottom: 40px;
+  background: linear-gradient(135deg, #e5d1f2, #ffd6d6, #ffb6e6);
+  background-size: 400% 400%;
+  animation: gradientShift 20s ease infinite;
 }
 
 .forum-title {
   font-size: 3rem;
   text-align: center;
   margin-bottom: 0.3em;
-  margin-top: 40px;
 }
 
 .forum-subtitle {
+  font-size: 20;
   text-align: center;
   font-style: italic;
   margin-bottom: 40px;
   color: rgba(255, 255, 255, 0.7);
+}
+
+.forum-content {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  width: 90%;
+  max-width: 1200px;
+  flex-wrap: wrap;
 }
 
 .forum-form {
@@ -535,7 +557,10 @@ body, html, #root {
   border-radius: 16px;
   margin-bottom: 30px;
   backdrop-filter: blur(8px);
+  width: 100%;
+  max-width: 500px; 
 }
+
 
 .forum-form input,
 .forum-form textarea {
@@ -543,6 +568,14 @@ body, html, #root {
   padding: 10px;
   border-radius: 10px;
   font-size: 1rem;
+  background-color: rgba(255, 255, 255, 0.2); /* ✨ Adds visibility */
+  color: white;
+}
+
+
+.forum-form input::placeholder,
+.forum-form textarea::placeholder {
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .forum-form button {
@@ -564,6 +597,8 @@ body, html, #root {
   display: flex;
   flex-direction: column;
   gap: 25px;
+  width: 100%;
+  max-width: 700px;
 }
 
 
@@ -582,4 +617,42 @@ body, html, #root {
   font-size: 0.9rem;
   color: rgba(255, 255, 255, 0.7);
   font-style: italic;
+}
+
+.forum-toggle-buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.forum-toggle-buttons button {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  padding: 12px 25px;
+  border-radius: 20px;
+  color: white;
+  font-weight: bold;
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.forum-toggle-buttons button:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.like-button {
+  background: transparent;
+  border: 2px solid white;
+  border-radius: 50%;
+  padding: 8px;
+  cursor: pointer;
+  color: white;
+  transition: 0.3s ease;
+}
+
+.like-button.liked {
+  color: red;
+  border-color: white;
 }
