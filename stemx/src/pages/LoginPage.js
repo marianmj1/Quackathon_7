@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import '../App.css';
-
+import axios from 'axios';
 
 
 const LoginPage = () => {
@@ -9,21 +9,27 @@ const LoginPage = () => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
-    const storedUser = JSON.parse(localStorage.getItem('fakeUser'));
+    try {
+      const response = await axios.post('http://10.138.240.15:5000/api/user', {
+        email,
+        password
+      });
 
-    if (!storedUser || storedUser.email !== email || storedUser.password !== password) {
-      alert('Invalid credentials. Try again!');
-      return;
+      if (response.data.message === "Login successful!") {
+        localStorage.setItem('isLoggedIn', 'true');
+        alert('Login successful! Redirecting...');
+        navigate('/dashboard');
+      } else {
+        alert('Invalid credentials. Try again!');
+      }
+    } catch (error) {
+      alert('An error occurred, please try again later');
     }
-
-    localStorage.setItem('isLoggedIn', 'true');
-    alert('Login successful! Redirecting...');
-    navigate('/dashboard');
   };
+
 
   return (
     <div className="auth-container">
