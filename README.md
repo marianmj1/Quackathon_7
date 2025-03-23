@@ -5,19 +5,18 @@ They are then able to message them to ask questions and arrange a day to meet, w
 for their project. After the student is trained on how to use the tool, they can get that skill tag added to their profile by the experienced party. 
 We also wanted to inlcude a discussion section for troubleshooting and events section for exploring oportunities for networking and learning events.
 ---
-## 🚀 Features
 
-### ✅ Core Features:
-- 🔐 **Sign Up / Login** system (frontend-ready, backend-integration planned)
-- 📂 **Resources Page** with category filters and search bar
-- 💬 **Messaging Popup** to connect with organizers
-- 📅 **Events Widget** with embedded Google Calendar
-- 🧠 **Skill Tags** and a personal **Profile Section**
-- 🧵 **Community Forum** with like system & discussion posts
+### Core Features:
+-  **Sign Up / Login** system (frontend-ready, backend-integration planned)
+-  **Resources Page** with category filters and search bar
+-  **Messaging Popup** to connect with organizers
+-  **Events Widget** with embedded Google Calendar
+-  **Skill Tags** and a personal **Profile Section**
+-  **Community Forum** with like system & discussion posts
 
 ---
 
-## 🧪 Tech Stack
+##  Tech Stack
 
 | Frontend       | Backend (Planned)      |
 |----------------|------------------------|
