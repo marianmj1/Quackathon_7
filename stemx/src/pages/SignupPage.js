@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import '../App.css';
 import { useNavigate } from 'react-router-dom';
 
-
 const SignupPage = () => {
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirm, setConfirm] = useState('');
   const navigate = useNavigate();
-
 
   const handleSignup = (e) => {
     e.preventDefault();
@@ -18,10 +18,12 @@ const SignupPage = () => {
       return;
     }
 
-    const newUser = { email, password };
+    const fullName = `${firstName.trim()} ${lastName.trim()}`;
+    const newUser = { fullName, email, password };
+
     localStorage.setItem('fakeUser', JSON.stringify(newUser));
     alert('Sign up successful! Now go login.');
-    navigate('/login')
+    navigate('/login');
   };
 
   return (
@@ -31,6 +33,20 @@ const SignupPage = () => {
 
       <h2>Sign Up</h2>
       <form onSubmit={handleSignup} className="auth-form">
+        <input
+          type="text"
+          placeholder="First Name"
+          value={firstName}
+          onChange={(e) => setFirstName(e.target.value)}
+          required
+        />
+        <input
+          type="text"
+          placeholder="Last Name"
+          value={lastName}
+          onChange={(e) => setLastName(e.target.value)}
+          required
+        />
         <input
           type="email"
           placeholder="Email"
@@ -59,7 +75,4 @@ const SignupPage = () => {
 };
 
 export default SignupPage;
-
-
-
 
