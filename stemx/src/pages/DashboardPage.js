@@ -71,8 +71,8 @@ const DashboardPage = () => {
           <h2>Profile info:</h2>
           <p><strong>Name:</strong> Marian Morales</p>
           <p><strong>School:</strong> Oakland University</p>
-          <p><strong>Year:</strong> Junior</p>
           <p><strong>Major:</strong> Computer Science</p>
+          <p><strong>Minor:</strong> Robotics</p>
   
           <h3>Skills:</h3>
           <div className="skill-bubbles">
