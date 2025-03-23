@@ -6,9 +6,12 @@ import axios from 'axios';
 const SignupPage = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
+  const [major, setMajor] = useState('');
+  const [minor, setMinor] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirm, setConfirm] = useState('');
+  const [school, setSchool] = useState('');
   const navigate = useNavigate();
 
   const handleSignup = async (e) => {
@@ -24,6 +27,9 @@ const SignupPage = () => {
         email: email.trim(),
         password: password.trim(),
         name: `${firstName.trim()} ${lastName.trim()}`,
+        major: major.trim(),
+        minor: minor.trim(),
+        school: school.trim(),
       });
 
       if (response.status === 201) {
@@ -57,6 +63,27 @@ const SignupPage = () => {
           placeholder="Last Name"
           value={lastName}
           onChange={(e) => setLastName(e.target.value)}
+          required
+        />
+        <input
+          type="text"
+          placeholder="Major"
+          value={major}
+          onChange={(e) => setMajor(e.target.value)}
+          required
+        />
+        <input
+          type="text"
+          placeholder="Minor"
+          value={minor}
+          onChange={(e) => setMinor(e.target.value)}
+          required
+        />
+        <input
+          type="text"
+          placeholder="School"
+          value={school}
+          onChange={(e) => setSchool(e.target.value)}  // School input
           required
         />
         <input
