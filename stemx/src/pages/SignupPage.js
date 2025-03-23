@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import '../App.css';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const SignupPage = () => {
   const [firstName, setFirstName] = useState('');
@@ -10,7 +11,7 @@ const SignupPage = () => {
   const [confirm, setConfirm] = useState('');
   const navigate = useNavigate();
 
-  const handleSignup = (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
 
     if (password !== confirm) {
@@ -18,12 +19,23 @@ const SignupPage = () => {
       return;
     }
 
-    const fullName = `${firstName.trim()} ${lastName.trim()}`;
-    const newUser = { fullName, email, password };
+    try {
+      const response = await axios.post('http://10.138.240.15:5000/api/signup', {
+        email: email.trim(),
+        password: password.trim(),
+        name: `${firstName.trim()} ${lastName.trim()}`,
+      });
 
-    localStorage.setItem('fakeUser', JSON.stringify(newUser));
-    alert('Sign up successful! Now go login.');
-    navigate('/login');
+      if (response.status === 201) {
+        alert('Sign up successful! Now go login.');
+        navigate('/login');
+      } else {
+        alert('Signup failed. Try again.');
+      }
+    } catch (error) {
+      console.error('Error during signup:', error);
+      alert(error.response?.data?.message || 'An error occurred. Please try again.');
+    }
   };
 
   return (
@@ -75,4 +87,3 @@ const SignupPage = () => {
 };
 
 export default SignupPage;
-

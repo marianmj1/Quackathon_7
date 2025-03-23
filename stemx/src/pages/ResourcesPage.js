@@ -1,11 +1,21 @@
-import React, { useState } from 'react';
+import { useEffect, useState } from "react";
 import '../App.css';
+//integrating API data
+import axios from "axios";
+
 
 const ResourcesPage = () => {
+  const [resources, setResources] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
   const [popupData, setPopupData] = useState(null);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+
+  useEffect(() => {
+    axios.get("http://10.138.240.15:5000/api/resources")
+      .then(response => setResources(response.data))
+      .catch(error => console.error("Error fetching resources:", error));
+  }, []);
 
   const openPopup = (organizer) => {
     setPopupData(organizer);
@@ -17,108 +27,10 @@ const ResourcesPage = () => {
     setIsPopupOpen(false);
   };
 
-  const resources = [
-    {
-      title: 'Intro to Python',
-      tags: ['free', 'computer access', 'software'],
-      description: 'A beginner-friendly intro to Python with online tools and projects.',
-      category: 'Software',
-      organizer: {
-        name: 'Dr. Guangzhi Qu',
-        email: 'gqu@oakland.edu',
-        role: 'Interim Chair, CSE Department',
-      },
-    },
-    {
-      title: 'Git & GitHub Crash Course',
-      tags: ['version control', 'free', 'CLI'],
-      description: 'Learn how to use Git and GitHub to collaborate on coding projects.',
-      category: 'Software',
-      organizer: {
-        name: 'Dr. Julian Rrushi',
-        email: 'rrushi@oakland.edu',
-        role: 'Associate Professor, Software Security',
-      },
-    },
-    {
-      title: '3D Printing Metal Kits',
-      tags: ['kits', 'manufacturing', 'metal'],
-      description: 'Access to 3D printing kits and metal materials for fabrication projects.',
-      category: 'Mechanical',
-      organizer: {
-        name: 'Dr. Laila Guessous',
-        email: 'guessous@oakland.edu',
-        role: 'Professor, Mechanical Engineering',
-      },
-    },
-    {
-      title: 'CAD Tutorial Library',
-      tags: ['CAD', 'mechanical design', 'simulation'],
-      description: 'Master CAD tools like SolidWorks and Fusion 360 with guided projects.',
-      category: 'Mechanical',
-      organizer: {
-        name: 'AutoDesk',
-        email: 'support@autodesk.com',
-        role: 'CAD Software Provider',
-      },
-    },
-    {
-      title: 'Arduino Starter Kit',
-      tags: ['kits', 'circuits', 'embedded'],
-      description: 'Explore microcontrollers, sensors, and basic electronics hands-on.',
-      category: 'Electrical',
-      organizer: {
-        name: 'Dr. Hoda S. Abdel-Aty-Zohdy',
-        email: 'zohdy@oakland.edu',
-        role: 'Professor, Electrical Engineering',
-      },
-    },
-    {
-      title: 'Soldering 101',
-      tags: ['hands-on', 'electrical', 'lab access'],
-      description: 'Learn essential soldering skills for electrical projects.',
-      category: 'Electrical',
-      organizer: {
-        name: 'Solder.net',
-        email: 'info@solder.net',
-        role: 'Online Lab Tutorials',
-      },
-    },
-    {
-      title: 'STEMx Parts Library',
-      tags: ['plastic', 'metal', 'fasteners'],
-      description: 'Request and browse commonly used parts for builds and repairs.',
-      category: 'Parts',
-      organizer: {
-        name: 'Systems Lab Admin',
-        email: 'labadmin@stemx.org',
-        role: 'Resource Coordinator',
-      },
-    },
-    {
-      title: 'Laser Cutter Access',
-      tags: ['laser cutting', 'fabrication', 'access'],
-      description: 'Reserve time with the laser cutter and learn proper safety practices.',
-      category: 'Parts',
-      organizer: {
-        name: 'Fab Lab Coordinator',
-        email: 'fablab@stemx.org',
-        role: 'Lab Technician',
-      },
-    },
-  ];
-
-  const handleSearchChange = (e) => {
-    setSearchTerm(e.target.value);
-  };
-
-  const handleCategoryChange = (e) => {
-    setSelectedCategory(e.target.value);
-  };
-
+  //new filtered resources wip
   const filteredResources = resources.filter((resource) => {
-    const matchesCategory = selectedCategory ? resource.category === selectedCategory : true;
-    const matchesSearchTerm = resource.title.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory = selectedCategory ? resource.major_category === selectedCategory : true;
+    const matchesSearchTerm = resource.resource_name.toLowerCase().includes(searchTerm.toLowerCase());
     return matchesCategory && matchesSearchTerm;
   });
 
@@ -135,18 +47,14 @@ const ResourcesPage = () => {
               placeholder="Search resources..."
               className="search-input"
               value={searchTerm}
-              onChange={handleSearchChange}
+              onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
 
-          <select
-            className="category-filter"
-            value={selectedCategory}
-            onChange={handleCategoryChange}
-          >
+          <select className="category-filter" value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)}>
             <option value="">Filter by Category</option>
             <option value="Mechanical">Mechanical</option>
-            <option value="Electrical">Electrical</option>
+            <option value="Electronics">Electronics</option>
             <option value="Software">Software</option>
             <option value="Parts">Parts</option>
           </select>
@@ -157,18 +65,33 @@ const ResourcesPage = () => {
       <div className="resource-grid">
         {filteredResources.map((resource, index) => (
           <div className="resource-card" key={index}>
-            <h3>{resource.title}</h3>
-            <p className="resource-tags">{resource.tags.join(' · ')}</p>
-            <p>{resource.description}</p>
+            <h3>{resource.resource_name}</h3>
+            <p className="resource-tags">{resource.tags?.join(" · ")}</p>
+            <p>Category: {resource.major_category} - {resource.minor_category || "N/A"}</p>
+            
+            <p 
+              className="resource-organizer clickable" 
+              onClick={() => {
+                let email = "";
+                let role = "";
 
-            <p
-              className="resource-organizer clickable"
-              onClick={() => openPopup(resource.organizer)}
+                if (resource.contact.startsWith("Dr.")) {
+                  const nameParts = resource.contact.split(" ");
+                  const lastName = nameParts[nameParts.length - 1];
+                  email = `${lastName.toLowerCase()}@oakland.edu`;
+                  role = "Professor";
+                } else {
+                  email = `connect@${resource.contact.replace(/\s+/g, '').toLowerCase()}.com`;
+                  role = "Organization";
+                }
+
+                openPopup({ name: resource.contact, email, role });
+              }}
             >
-              Organized by: <strong>{resource.organizer.name}</strong>
+              Organized by: <strong>{resource.contact}</strong>
             </p>
 
-            <span className="category-label">{resource.category}</span>
+            <span className="category-label">{resource.major_category}</span>
           </div>
         ))}
       </div>
@@ -181,7 +104,16 @@ const ResourcesPage = () => {
             <h2>{popupData.name}</h2>
             <p><strong>Email:</strong> {popupData.email}</p>
             <p><strong>Role:</strong> {popupData.role}</p>
-            <button className="send-button">Send Message</button>
+            <button 
+              className="send-button" 
+              onClick={() => {
+                navigator.clipboard.writeText(popupData.email)
+                  .then(() => alert(`Copied ${popupData.email}`))
+                  .catch(err => console.error("Failed to copy email:", err));
+              }}
+            >
+              Send Message
+            </button>
           </div>
         </div>
       )}
@@ -190,5 +122,3 @@ const ResourcesPage = () => {
 };
 
 export default ResourcesPage;
-
-
