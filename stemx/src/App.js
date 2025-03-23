@@ -7,6 +7,14 @@ import SignupPage from './pages/SignupPage.js';
 import DashboardPage from './pages/DashboardPage.js';
 
 function App() {
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    axios.get(API_URL)
+      .then(response => setUsers(response.data))
+      .catch(error => console.error("Error fetching users:", error));
+  }, []);
+
   return (
     <Router>
       <Routes>
